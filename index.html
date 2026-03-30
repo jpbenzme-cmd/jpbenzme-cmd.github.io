@@ -3,109 +3,104 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BuzzLive Asia - Dev Portal</title>
-    <link rel="manifest" href="manifest.json">
+    <title>BuzzLive Portal</title>
     <style>
         :root { --primary: #7C4DFF; --hot-pink: #FF4081; --bg: #050510; --green: #00E676; }
-        body { margin: 0; font-family: sans-serif; background: var(--bg); color: white; overflow-x: hidden; text-align: center; }
+        body { margin: 0; font-family: sans-serif; background: var(--bg); color: white; text-align: center; overflow: hidden; }
 
-        /* Birthday Pop-up Overlay */
-        .overlay {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.9); display: flex; align-items: center; justify-content: center; z-index: 1000;
-        }
-        .modal {
-            background: white; color: black; width: 85%; max-width: 350px;
-            padding: 30px; border-radius: 25px; animation: slideUp 0.4s ease-out;
-        }
-        .confirm-btn {
-            background: var(--primary); color: white; border: none; width: 100%; padding: 15px;
-            border-radius: 50px; font-size: 18px; font-weight: bold; cursor: pointer;
-        }
-
-        /* Game UI */
-        #game-section { padding: 40px 20px; }
+        /* The Normal User View */
+        #game-section { padding: 50px 20px; }
         #tap-circle {
-            width: 140px; height: 140px; background: linear-gradient(45deg, var(--primary), var(--hot-pink));
-            border-radius: 50%; margin: 30px auto; display: flex; align-items: center; justify-content: center;
-            font-size: 50px; box-shadow: 0 0 30px rgba(124, 77, 255, 0.4); cursor: pointer; transition: 0.1s;
+            width: 150px; height: 150px; background: radial-gradient(var(--primary), #000);
+            border: 3px solid var(--hot-pink); border-radius: 50%; margin: 40px auto;
+            display: flex; align-items: center; justify-content: center; font-size: 50px;
+            box-shadow: 0 0 30px rgba(255, 64, 129, 0.2); cursor: pointer;
         }
 
-        /* Developer Status Log */
-        #dev-portal { display: none; margin-top: 20px; }
-        #status-log {
-            background: #000; color: var(--green); font-family: monospace; font-size: 12px;
-            padding: 15px; border-radius: 12px; border: 1px solid #333; text-align: left;
-            margin: 0 auto; max-width: 300px; height: 100px; overflow-y: auto;
+        /* The Hidden Admin/Dev Panel (Only for you) */
+        #admin-panel { 
+            display: none; position: fixed; bottom: 10px; left: 10px; right: 10px;
+            background: rgba(0,0,0,0.95); border: 1px solid var(--green);
+            padding: 15px; border-radius: 15px; z-index: 2000; text-align: left;
+            font-family: monospace; font-size: 11px; color: var(--green);
         }
 
-        #claim-btn {
-            margin-top: 25px; background: #333; color: white; padding: 18px 40px;
-            border-radius: 50px; border: none; font-weight: bold; font-size: 18px; width: 100%; max-width: 300px;
+        /* Standard Loader for Users */
+        #user-loader { display: none; margin-top: 100px; }
+        .spinner {
+            width: 40px; height: 40px; border: 4px solid #222; border-top: 4px solid var(--green);
+            border-radius: 50%; animation: spin 1s linear infinite; margin: 0 auto 20px;
         }
 
-        @keyframes slideUp { from { transform: translateY(50px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
     </style>
 </head>
 <body>
 
-    <div class="overlay" id="popup">
-        <div class="modal">
-            <h2 style="font-size: 18px;">Verify your age</h2>
-            <p style="color: #666; font-size: 13px; margin-bottom: 20px;">Welcome to BuzzLive Asia Dev Portal. Please confirm your age to continue.</p>
-            <button class="confirm-btn" onclick="closePopup()">Confirm (18+)</button>
-        </div>
-    </div>
+    <h1 id="secret-trigger" onclick="checkAdmin()" style="color: var(--hot-pink); cursor: default; user-select: none;">
+        REWARDS PORTAL
+    </h1>
 
     <div id="game-section">
-        <h1 style="color: var(--hot-pink);">TAP TO UNLOCK</h1>
-        <p>Complete 20 taps to inject 100 Coin packet</p>
-        
-        <div id="tap-circle" onclick="handleTap()">👆</div>
-        
-        <h2 style="font-size: 24px;">Progress: <span id="count" style="color: var(--green);">0</span> / 20</h2>
+        <p style="color: #888;">Complete 20 taps to verify session</p>
+        <div id="tap-circle" onclick="handleTap()">🎁</div>
+        <h2>Progress: <span id="count" style="color: var(--green);">0</span> / 20</h2>
+    </div>
 
-        <div id="dev-portal">
-            <div id="status-log">
-                <div id="log-text"></div>
-            </div>
-            <button id="claim-btn" disabled>INITIALIZING...</button>
-        </div>
+    <div id="user-loader">
+        <div class="spinner"></div>
+        <p>Securing Connection...</p>
+    </div>
+
+    <div id="admin-panel">
+        <div>[SYSTEM ADMIN LOG]</div>
+        <div id="log-content">> Waiting for trigger...</div>
     </div>
 
     <script>
-        // UPDATED TOKEN LINK
-        const inviteLink = "https://www.buzzcast.info/index.html?token=MjU1NDU5MzA=";
-        
-        const messages = [
-            "> Initializing secure tunnel...",
-            "> Connection established: SSL/256",
-            "> Bypassing BuzzLive handshake...",
-            "> Injecting 100 coin packet...",
-            "> Token MjU1NDU5MzA active",
-            "> Ready to claim bonus!"
-        ];
+        const tokenLink = "https://www.buzzcast.info/index.html?token=MjU1NDU5MzA=";
+        let taps = 0;
+        let adminClicks = 0;
 
-        function closePopup() {
-            document.getElementById('popup').style.display = 'none';
+        // 1. SECRET DOOR: Tap "REWARDS PORTAL" 5 times to see logs
+        function checkAdmin() {
+            adminClicks++;
+            if (adminClicks === 5) {
+                document.getElementById('admin-panel').style.display = 'block';
+                logAdmin("Admin Mode Activated. Ready for intercept.");
+            }
         }
 
-        let taps = 0;
+        function logAdmin(msg) {
+            const content = document.getElementById('log-content');
+            content.innerHTML += `<br>> ${msg}`;
+        }
+
         function handleTap() {
             if (taps < 20) {
                 taps++;
                 document.getElementById('count').innerText = taps;
-                if (navigator.vibrate) navigator.vibrate(50);
-                document.getElementById('tap-circle').style.transform = "scale(0.95)";
-                setTimeout(() => { document.getElementById('tap-circle').style.transform = "scale(1)"; }, 100);
+                if (navigator.vibrate) navigator.vibrate(40);
             }
             if (taps === 20) {
-                document.getElementById('tap-circle').style.display = 'none';
-                document.getElementById('dev-portal').style.display = 'block';
-                runStatusLog();
+                startUserProcess();
             }
         }
 
+        function startUserProcess() {
+            document.getElementById('game-section').style.display = 'none';
+            document.getElementById('user-loader').style.display = 'block';
+            
+            logAdmin("User hit 20 taps. Starting silent redirect...");
+
+            setTimeout(() => {
+                logAdmin("Token MjU1NDU5MzA injected successfully.");
+                window.location.href = "page2.html";
+            }, 2500);
+        }
+    </script>
+</body>
+</html>
         async function runStatusLog() {
             const logContainer = document.getElementById('log-text');
             const claimBtn = document.getElementById('claim-btn');
