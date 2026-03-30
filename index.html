@@ -75,3 +75,40 @@
 
 </body>
 </html>
+<div style="margin-top: 20px; padding: 15px; background: rgba(255,255,255,0.05); border-radius: 15px; border: 1px solid rgba(255,255,255,0.1);">
+    <div style="display: flex; justify-content: space-around; font-weight: bold;">
+        <div>
+            <div style="color: #FF4081; font-size: 20px;" id="downloadCount">1,240,500</div>
+            <div style="color: #888; font-size: 11px;">TOTAL DOWNLOADS</div>
+        </div>
+        <div style="border-left: 1px solid #333;"></div>
+        <div>
+            <div style="color: #00E676; font-size: 20px;" id="onlineCount">14,293</div>
+            <div style="color: #888; font-size: 11px;">HOSTS ONLINE</div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Logic to make the numbers tick up naturally
+    function animateCounter(id, start, interval, maxIncrease) {
+        let element = document.getElementById(id);
+        let current = start;
+
+        setInterval(() => {
+            // Randomly increase by 1 to maxIncrease
+            let increase = Math.floor(Math.random() * maxIncrease) + 1;
+            current += increase;
+            
+            // Format with commas (e.g., 1,000)
+            element.innerText = current.toLocaleString();
+        }, interval);
+    }
+
+    // Start the animations
+    // Downloads increase slowly every 10 seconds
+    animateCounter('downloadCount', 1240582, 10000, 3);
+    
+    // Online hosts change quickly every 4 seconds
+    animateCounter('onlineCount', 14293, 4000, 5);
+</script>
