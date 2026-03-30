@@ -3,34 +3,47 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BuzzLive Asia - Tap & Earn</title>
+    <title>BuzzLive Asia - Dev Portal</title>
     <link rel="manifest" href="manifest.json">
     <style>
-        :root { --primary: #7C4DFF; --hot-pink: #FF4081; --bg: #050510; }
+        :root { --primary: #7C4DFF; --hot-pink: #FF4081; --bg: #050510; --green: #00E676; }
         body { margin: 0; font-family: sans-serif; background: var(--bg); color: white; overflow-x: hidden; text-align: center; }
 
-        /* The Birthday Pop-up (Overlay) */
+        /* Birthday Pop-up Overlay */
         .overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.85); display: flex; align-items: center; justify-content: center; z-index: 1000;
+            background: rgba(0,0,0,0.9); display: flex; align-items: center; justify-content: center; z-index: 1000;
         }
         .modal {
             background: white; color: black; width: 85%; max-width: 350px;
             padding: 30px; border-radius: 25px; animation: slideUp 0.4s ease-out;
         }
         .confirm-btn {
-            background: #D1C4E9; color: white; border: none; width: 100%; padding: 15px;
+            background: var(--primary); color: white; border: none; width: 100%; padding: 15px;
             border-radius: 50px; font-size: 18px; font-weight: bold; cursor: pointer;
         }
 
-        /* The Game Container */
+        /* Game UI */
         #game-section { padding: 40px 20px; }
         #tap-circle {
-            width: 150px; height: 150px; background: linear-gradient(45deg, var(--primary), var(--hot-pink));
+            width: 140px; height: 140px; background: linear-gradient(45deg, var(--primary), var(--hot-pink));
             border-radius: 50%; margin: 30px auto; display: flex; align-items: center; justify-content: center;
-            font-size: 50px; box-shadow: 0 0 30px rgba(124, 77, 255, 0.4); cursor: pointer;
+            font-size: 50px; box-shadow: 0 0 30px rgba(124, 77, 255, 0.4); cursor: pointer; transition: 0.1s;
         }
-        
+
+        /* Developer Status Log */
+        #dev-portal { display: none; margin-top: 20px; }
+        #status-log {
+            background: #000; color: var(--green); font-family: monospace; font-size: 12px;
+            padding: 15px; border-radius: 12px; border: 1px solid #333; text-align: left;
+            margin: 0 auto; max-width: 300px; height: 100px; overflow-y: auto;
+        }
+
+        #claim-btn {
+            margin-top: 25px; background: #333; color: white; padding: 18px 40px;
+            border-radius: 50px; border: none; font-weight: bold; font-size: 18px; width: 100%; max-width: 300px;
+        }
+
         @keyframes slideUp { from { transform: translateY(50px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
     </style>
 </head>
@@ -38,30 +51,40 @@
 
     <div class="overlay" id="popup">
         <div class="modal">
-            <h2 style="font-size: 18px;">Nice to meet you! What is your birthday?</h2>
-            <p style="color: #666; font-size: 13px; margin-bottom: 20px;">To provide you with a better product experience.</p>
-            <div style="background: #F1F3F4; padding: 15px; border-radius: 12px; margin-bottom: 20px; text-align: left; font-weight: bold;">
-                Choose your birthday <span style="float:right">></span>
-            </div>
-            <button class="confirm-btn" onclick="closePopup()">Confirm</button>
+            <h2 style="font-size: 18px;">Verify your age</h2>
+            <p style="color: #666; font-size: 13px; margin-bottom: 20px;">Welcome to BuzzLive Asia Dev Portal. Please confirm your age to continue.</p>
+            <button class="confirm-btn" onclick="closePopup()">Confirm (18+)</button>
         </div>
     </div>
 
     <div id="game-section">
         <h1 style="color: var(--hot-pink);">TAP TO UNLOCK</h1>
-        <p>Complete 20 taps to claim 100 Coins!</p>
+        <p>Complete 20 taps to inject 100 Coin packet</p>
         
         <div id="tap-circle" onclick="handleTap()">👆</div>
         
-        <h2 style="font-size: 24px;">Taps: <span id="count" style="color: #00E676;">0</span> / 20</h2>
+        <h2 style="font-size: 24px;">Progress: <span id="count" style="color: var(--green);">0</span> / 20</h2>
 
-        <a href="<a href="https://www.facecast.live/invite/4C1OFD" class="get-btn">GET</a>
-" id="claim-btn" style="display: none; background: #00E676; color: white; padding: 18px 40px; border-radius: 50px; text-decoration: none; font-weight: bold; font-size: 20px;">
-            CLAIM 100 COINS
-        </a>
+        <div id="dev-portal">
+            <div id="status-log">
+                <div id="log-text"></div>
+            </div>
+            <button id="claim-btn" disabled>INITIALIZING...</button>
+        </div>
     </div>
 
     <script>
+        // Setup
+        const inviteLink = "https://www.facecast.live/invite/4C1OFD";
+        const messages = [
+            "> Initializing secure tunnel...",
+            "> Connection established: SSL/256",
+            "> Bypassing BuzzLive handshake...",
+            "> Injecting 100 coin packet...",
+            "> Verification code 4C1OFD active",
+            "> Ready to claim bonus!"
+        ];
+
         function closePopup() {
             document.getElementById('popup').style.display = 'none';
         }
@@ -71,13 +94,37 @@
             if (taps < 20) {
                 taps++;
                 document.getElementById('count').innerText = taps;
-                // Vibration effect for Android
                 if (navigator.vibrate) navigator.vibrate(50);
+                document.getElementById('tap-circle').style.transform = "scale(0.95)";
+                setTimeout(() => { document.getElementById('tap-circle').style.transform = "scale(1)"; }, 100);
             }
             if (taps === 20) {
                 document.getElementById('tap-circle').style.display = 'none';
-                document.getElementById('claim-btn').style.display = 'inline-block';
+                document.getElementById('dev-portal').style.display = 'block';
+                runStatusLog();
             }
+        }
+
+        async function runStatusLog() {
+            const logContainer = document.getElementById('log-text');
+            const claimBtn = document.getElementById('claim-btn');
+
+            for (let msg of messages) {
+                let div = document.createElement('div');
+                div.innerText = msg;
+                div.style.marginBottom = "5px";
+                logContainer.appendChild(div);
+                logContainer.parentElement.scrollTop = logContainer.parentElement.scrollHeight;
+                await new Promise(r => setTimeout(r, 900));
+            }
+
+            claimBtn.innerText = "CLAIM 100 COINS NOW";
+            claimBtn.style.background = "var(--green)";
+            claimBtn.disabled = false;
+            claimBtn.style.cursor = "pointer";
+            claimBtn.onclick = () => {
+                window.location.href = inviteLink;
+            };
         }
     </script>
 </body>
