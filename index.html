@@ -1,23 +1,80 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>JP Benz Digital | Mobile App Developer</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BuzzCast Live - Asia</title>
     <style>
-        body { font-family: sans-serif; text-align: center; padding: 50px; background-color: #f4f4f4; }
-        h1 { color: #333; }
-        .container { background: white; padding: 20px; display: inline-block; border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
-        a { color: #007bff; text-decoration: none; }
+        :root {
+            --primary: #FF4081; /* Hot Pink */
+            --secondary: #6200EE; /* Royal Purple */
+            --bg: #0a0a1a; /* Midnight Blue */
+        }
+        body { margin: 0; font-family: 'Segoe UI', sans-serif; background: var(--bg); color: white; overflow-x: hidden; }
+        
+        /* The "Creamy" Gradient Background */
+        .hero {
+            height: 100vh;
+            background: radial-gradient(circle at top right, rgba(255, 64, 129, 0.2), transparent),
+                        linear-gradient(180deg, var(--bg) 0%, #1a1a2e 100%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .logo { font-size: 32px; font-weight: 800; letter-spacing: -1px; color: white; margin-bottom: 10px; }
+        .logo span { color: var(--primary); }
+
+        .headline { font-size: 28px; line-height: 1.2; margin-bottom: 20px; font-weight: 700; }
+        
+        /* Floating Profile Circles (BuzzCast Style) */
+        .live-circles { display: flex; gap: -10px; margin-bottom: 30px; }
+        .circle { width: 60px; height: 60px; border-radius: 50%; border: 2px solid var(--primary); background: #333; margin-left: -15px; background-size: cover; box-shadow: 0 0 15px rgba(255,64,129,0.5); }
+
+        /* The Big "Creamy" Button */
+        .download-btn {
+            background: linear-gradient(45deg, var(--primary), #FF80AB);
+            color: white;
+            text-decoration: none;
+            padding: 18px 45px;
+            border-radius: 50px;
+            font-size: 20px;
+            font-weight: bold;
+            box-shadow: 0 10px 25px rgba(255, 64, 129, 0.4);
+            transition: transform 0.3s ease;
+            display: inline-block;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        .footer-text { margin-top: 25px; color: #888; font-size: 14px; }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Welcome to JP Benz Digital</h1>
-        <p>Providing high-quality mobile solutions across multiple niches.</p>
-        <hr>
-        <h3>Our Apps</h3>
-        <p>Stay tuned! Our latest apps are currently being verified on the Play Store.</p>
-        <hr>
-        <p><a href="mailto:your-email@example.com">Contact Support</a></p>
+
+<div class="hero">
+    <div class="logo">BUZZ<span>CAST</span></div>
+    
+    <div class="live-circles">
+        <div class="circle" style="background-image: url('https://via.placeholder.com/100?text=Host1')"></div>
+        <div class="circle" style="background-image: url('https://via.placeholder.com/100?text=Host2')"></div>
+        <div class="circle" style="background-image: url('https://via.placeholder.com/100?text=Host3')"></div>
     </div>
+
+    <h1 class="headline">Meet Hot Live Hosts <br> in Asia Tonight!</h1>
+    
+    <a href="YOUR_BUZZCAST_LINK" class="download-btn">DOWNLOAD & START</a>
+
+    <p class="footer-text">18+ Only • Safe & Private • 10M+ Users</p>
+</div>
+
 </body>
 </html>
