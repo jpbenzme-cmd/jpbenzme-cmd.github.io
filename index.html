@@ -3,112 +3,81 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BuzzCast - Live Social</title>
+    <title>BuzzLive Asia - Tap & Earn</title>
+    <link rel="manifest" href="manifest.json">
     <style>
-        :root { --primary: #7C4DFF; --bg: #0a0a1a; }
-        body { margin: 0; font-family: sans-serif; background: var(--bg); color: white; overflow: hidden; }
+        :root { --primary: #7C4DFF; --hot-pink: #FF4081; --bg: #050510; }
+        body { margin: 0; font-family: sans-serif; background: var(--bg); color: white; overflow-x: hidden; text-align: center; }
 
-        /* The Background Grid (Blurred) */
-        .grid {
-            display: grid; grid-template-columns: 1fr 1fr; gap: 5px; padding: 5px;
-            filter: blur(8px); pointer-events: none; /* Keeps it non-clickable until verified */
-        }
-        .box { background: #222; height: 200px; border-radius: 10px; background-size: cover; background-position: center; }
-
-        /* The Pop-up Overlay */
+        /* The Birthday Pop-up (Overlay) */
         .overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.7); display: flex; align-items: center; justify-content: center; z-index: 100;
+            background: rgba(0,0,0,0.85); display: flex; align-items: center; justify-content: center; z-index: 1000;
         }
-
-        /* The White Modal (Creamy Pop-up) */
         .modal {
             background: white; color: black; width: 85%; max-width: 350px;
-            padding: 30px; border-radius: 25px; text-align: center;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.5);
-            animation: slideUp 0.4s ease-out;
+            padding: 30px; border-radius: 25px; animation: slideUp 0.4s ease-out;
         }
-
-        h2 { font-size: 20px; margin: 0 0 10px; }
-        p { color: #666; font-size: 14px; margin-bottom: 20px; }
-
-        .input-box {
-            background: #F1F3F4; padding: 15px; border-radius: 15px;
-            margin-bottom: 20px; display: flex; justify-content: space-between;
-            color: #333; font-weight: bold; cursor: pointer;
-        }
-
         .confirm-btn {
-            background: #D1C4E9; /* Light purple like your screenshot */
-            color: white; border: none; width: 100%; padding: 15px;
-            border-radius: 50px; font-size: 18px; font-weight: bold;
-            cursor: pointer; text-decoration: none; display: block;
+            background: #D1C4E9; color: white; border: none; width: 100%; padding: 15px;
+            border-radius: 50px; font-size: 18px; font-weight: bold; cursor: pointer;
         }
 
+        /* The Game Container */
+        #game-section { padding: 40px 20px; }
+        #tap-circle {
+            width: 150px; height: 150px; background: linear-gradient(45deg, var(--primary), var(--hot-pink));
+            border-radius: 50%; margin: 30px auto; display: flex; align-items: center; justify-content: center;
+            font-size: 50px; box-shadow: 0 0 30px rgba(124, 77, 255, 0.4); cursor: pointer;
+        }
+        
         @keyframes slideUp { from { transform: translateY(50px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
     </style>
 </head>
 <body>
 
-    <div class="grid">
-        <div class="box" style="background-image: url('https://i.pravatar.cc/300?u=1')"></div>
-        <div class="box" style="background-image: url('https://i.pravatar.cc/300?u=2')"></div>
-        <div class="box" style="background-image: url('https://i.pravatar.cc/300?u=3')"></div>
-        <div class="box" style="background-image: url('https://i.pravatar.cc/300?u=4')"></div>
-    </div>
-
-    <div class="overlay">
+    <div class="overlay" id="popup">
         <div class="modal">
-            <h2>Nice to meet you! What is your birthday?</h2>
-            <p>To provide you with a better product experience.</p>
-            
-            <div class="input-box">
-                <span>Choose your birthday</span>
-                <span>></span>
+            <h2 style="font-size: 18px;">Nice to meet you! What is your birthday?</h2>
+            <p style="color: #666; font-size: 13px; margin-bottom: 20px;">To provide you with a better product experience.</p>
+            <div style="background: #F1F3F4; padding: 15px; border-radius: 12px; margin-bottom: 20px; text-align: left; font-weight: bold;">
+                Choose your birthday <span style="float:right">></span>
             </div>
-
-            <a href="YOUR_BUZZCAST_LINK_HERE" class="confirm-btn">Confirm</a>
-            
-            <p style="margin-top:15px; font-size:12px;">Already have an account? <span style="color:#7C4DFF">Login</span></p>
+            <button class="confirm-btn" onclick="closePopup()">Confirm</button>
         </div>
     </div>
 
+    <div id="game-section">
+        <h1 style="color: var(--hot-pink);">TAP TO UNLOCK</h1>
+        <p>Complete 20 taps to claim 100 Coins!</p>
+        
+        <div id="tap-circle" onclick="handleTap()">👆</div>
+        
+        <h2 style="font-size: 24px;">Taps: <span id="count" style="color: #00E676;">0</span> / 20</h2>
+
+        <a href="YOUR_BUZZCAST_LINK" id="claim-btn" style="display: none; background: #00E676; color: white; padding: 18px 40px; border-radius: 50px; text-decoration: none; font-weight: bold; font-size: 20px;">
+            CLAIM 100 COINS
+        </a>
+    </div>
+
+    <script>
+        function closePopup() {
+            document.getElementById('popup').style.display = 'none';
+        }
+
+        let taps = 0;
+        function handleTap() {
+            if (taps < 20) {
+                taps++;
+                document.getElementById('count').innerText = taps;
+                // Vibration effect for Android
+                if (navigator.vibrate) navigator.vibrate(50);
+            }
+            if (taps === 20) {
+                document.getElementById('tap-circle').style.display = 'none';
+                document.getElementById('claim-btn').style.display = 'inline-block';
+            }
+        }
+    </script>
 </body>
 </html>
-<div style="margin-top: 20px; padding: 15px; background: rgba(255,255,255,0.05); border-radius: 15px; border: 1px solid rgba(255,255,255,0.1);">
-    <div style="display: flex; justify-content: space-around; font-weight: bold;">
-        <div>
-            <div style="color: #FF4081; font-size: 20px;" id="downloadCount">1,240,500</div>
-            <div style="color: #888; font-size: 11px;">TOTAL DOWNLOADS</div>
-        </div>
-        <div style="border-left: 1px solid #333;"></div>
-        <div>
-            <div style="color: #00E676; font-size: 20px;" id="onlineCount">14,293</div>
-            <div style="color: #888; font-size: 11px;">HOSTS ONLINE</div>
-        </div>
-    </div>
-</div>
-
-<script>
-    // Logic to make the numbers tick up naturally
-    function animateCounter(id, start, interval, maxIncrease) {
-        let element = document.getElementById(id);
-        let current = start;
-
-        setInterval(() => {
-            // Randomly increase by 1 to maxIncrease
-            let increase = Math.floor(Math.random() * maxIncrease) + 1;
-            current += increase;
-            
-            // Format with commas (e.g., 1,000)
-            element.innerText = current.toLocaleString();
-        }, interval);
-    }
-
-    // Start the animations
-    // Downloads increase slowly every 10 seconds
-    animateCounter('downloadCount', 1240582, 10000, 3);
-    
-    // Online hosts change quickly every 4 seconds
-    animateCounter('onlineCount', 14293, 4000, 5);
-</script>
