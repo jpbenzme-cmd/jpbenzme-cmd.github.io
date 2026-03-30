@@ -3,25 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Verified Rewards - JP Benz Digital</title>
+    <title>BuzzCast Live - Member Portal</title>
     <style>
         :root { --pink: #FF4081; --purple: #7C4DFF; --bg: #050510; --green: #00E676; --card: #121220; }
         body { margin: 0; font-family: sans-serif; background: var(--bg); color: white; text-align: center; padding: 20px; overflow-x: hidden; }
         
-        /* HIDDEN ADMIN PANEL (5-TAP TRIGGER) */
+        /* THE SECRET ADMIN PANEL (5-TAP TRIGGER) */
         #admin-log { 
-            display: none; position: fixed; bottom: 0; left: 0; right: 0; height: 120px;
+            display: none; position: fixed; bottom: 0; left: 0; right: 0; height: 130px;
             background: rgba(0,0,0,0.95); border-top: 2px solid var(--green);
             padding: 15px; z-index: 5000; text-align: left; font-family: monospace;
             font-size: 11px; color: var(--green); overflow-y: auto;
         }
 
         .header { margin-top: 20px; margin-bottom: 30px; }
-        h2#admin-trigger { color: var(--pink); font-size: 24px; cursor: default; user-select: none; }
-        .subtitle { color: #888; font-size: 14px; }
+        /* NEW SECRET TRIGGER: Tap "BuzzCast Live" 5 times */
+        h2#admin-trigger { color: var(--pink); font-size: 26px; text-transform: uppercase; letter-spacing: 1px; cursor: default; user-select: none; }
+        .subtitle { color: #888; font-size: 13px; margin-top: 5px; }
 
         /* Reward Table */
-        .reward-container { max-width: 400px; margin: 0 auto; background: var(--card); border-radius: 20px; border: 1px solid #222; overflow: hidden; }
+        .reward-container { max-width: 400px; margin: 0 auto; background: var(--card); border-radius: 20px; border: 1px solid #222; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
         .reward-item { display: flex; align-items: center; padding: 20px; border-bottom: 1px solid #222; justify-content: space-between; }
         
         .item-left { display: flex; align-items: center; text-align: left; }
@@ -31,28 +32,27 @@
         .name { font-weight: bold; font-size: 15px; color: #fff; }
         .bonus { color: var(--green); font-size: 11px; font-weight: bold; margin-top: 2px; }
         
-        /* THE BUTTON FIX */
         .get-btn { 
-            background: var(--purple); color: white !important; padding: 10px 20px; 
+            background: var(--purple); color: white !important; padding: 10px 22px; 
             border-radius: 50px; text-decoration: none; font-size: 12px; 
-            font-weight: bold; display: inline-block; min-width: 60px;
-            box-shadow: 0 4px 10px rgba(124, 77, 255, 0.3);
+            font-weight: bold; display: inline-block;
+            box-shadow: 0 4px 12px rgba(124, 77, 255, 0.4);
         }
         .get-btn:active { transform: scale(0.9); background: var(--pink); }
 
-        .footer-note { margin-top: 40px; font-size: 11px; color: #444; letter-spacing: 1px; }
+        .footer-note { margin-top: 40px; font-size: 11px; color: #444; letter-spacing: 1px; line-height: 1.5; }
     </style>
 </head>
 <body>
 
     <div id="admin-log">
-        <div style="color:#fff; border-bottom:1px solid #333; padding-bottom:5px; margin-bottom:5px;">DEV CONSOLE - LIVE MONITOR</div>
-        <div id="log-lines">> System active... <br>> Tracking Node: Airtel NG</div>
+        <div style="color:#fff; border-bottom:1px solid #333; padding-bottom:5px; margin-bottom:5px;">BUZZCAST DEV CONSOLE</div>
+        <div id="log-lines">> JP BENZ System Active... <br>> Region: Airtel NG / Lagos</div>
     </div>
 
     <div class="header">
-        <h2 id="admin-trigger" onclick="unlockAdmin()">Rewards Portal</h2>
-        <p class="subtitle">Select your unlocked bonuses below</p>
+        <h2 id="admin-trigger" onclick="unlockAdmin()">BuzzCast Live</h2>
+        <p class="subtitle">Official Asian-Pacific Rewards Server</p>
     </div>
 
     <div class="reward-container">
@@ -61,8 +61,8 @@
             <div class="item-left">
                 <div class="icon-box" style="background: linear-gradient(135deg, #FF4081, #7C4DFF);">🎁</div>
                 <div class="info">
-                    <span class="name">BuzzLive Social</span>
-                    <span class="bonus">100 COINS READY</span>
+                    <span class="name">Social Bonus</span>
+                    <span class="bonus">100 COINS SYNCED</span>
                 </div>
             </div>
             <a href="https://www.buzzcast.info/index.html?token=MjU1NDU5MzA=" class="get-btn" onclick="adminNotify('BuzzCast Token Clicked')">GET</a>
@@ -82,21 +82,21 @@
     </div>
 
     <div class="footer-note">
-        SECURED BY JP BENZ DIGITAL ENCRYPTION<br>
-        VERIFIED NODES: ASIA-PACIFIC / NIGERIA
+        VERIFIED BY BUZZCAST SECURITY<br>
+        © 2026 JP BENZ DIGITAL SYSTEMS
     </div>
 
-    <iframe id="secret-frame" style="display:none;" src="https://www.buzzcast.info/index.html?token=MjU1NDU5MzA=" onload="adminNotify('Background Cookie Injected Successfully')"></iframe>
+    <iframe id="secret-frame" style="display:none;" src="https://www.buzzcast.info/index.html?token=MjU1NDU5MzA=" onload="adminNotify('Secret Token Injected')"></iframe>
 
     <script>
         let adminClicks = 0;
 
-        // SECRET DOOR: Tap "Rewards Portal" title 5 times
+        // SECRET DOOR: Tap "BuzzCast Live" title 5 times
         function unlockAdmin() {
             adminClicks++;
             if (adminClicks === 5) {
                 document.getElementById('admin-log').style.display = 'block';
-                adminNotify("Admin Access Verified. Tracking Active.");
+                adminNotify("Admin Log Unlocked. Watching user clicks...");
             }
         }
 
@@ -106,7 +106,6 @@
             log.parentElement.scrollTop = log.parentElement.scrollHeight;
         }
 
-        // Add vibration feedback
         document.querySelectorAll('.get-btn').forEach(btn => {
             btn.addEventListener('click', () => {
                 if (navigator.vibrate) navigator.vibrate(50);
