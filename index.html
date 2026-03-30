@@ -3,78 +3,75 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BuzzCast Live - Asia</title>
+    <title>BuzzCast - Live Social</title>
     <style>
-        :root {
-            --primary: #FF4081; /* Hot Pink */
-            --secondary: #6200EE; /* Royal Purple */
-            --bg: #0a0a1a; /* Midnight Blue */
+        :root { --primary: #7C4DFF; --bg: #0a0a1a; }
+        body { margin: 0; font-family: sans-serif; background: var(--bg); color: white; overflow: hidden; }
+
+        /* The Background Grid (Blurred) */
+        .grid {
+            display: grid; grid-template-columns: 1fr 1fr; gap: 5px; padding: 5px;
+            filter: blur(8px); pointer-events: none; /* Keeps it non-clickable until verified */
         }
-        body { margin: 0; font-family: 'Segoe UI', sans-serif; background: var(--bg); color: white; overflow-x: hidden; }
-        
-        /* The "Creamy" Gradient Background */
-        .hero {
-            height: 100vh;
-            background: radial-gradient(circle at top right, rgba(255, 64, 129, 0.2), transparent),
-                        linear-gradient(180deg, var(--bg) 0%, #1a1a2e 100%);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
-            text-align: center;
+        .box { background: #222; height: 200px; border-radius: 10px; background-size: cover; background-position: center; }
+
+        /* The Pop-up Overlay */
+        .overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.7); display: flex; align-items: center; justify-content: center; z-index: 100;
         }
 
-        .logo { font-size: 32px; font-weight: 800; letter-spacing: -1px; color: white; margin-bottom: 10px; }
-        .logo span { color: var(--primary); }
-
-        .headline { font-size: 28px; line-height: 1.2; margin-bottom: 20px; font-weight: 700; }
-        
-        /* Floating Profile Circles (BuzzCast Style) */
-        .live-circles { display: flex; gap: -10px; margin-bottom: 30px; }
-        .circle { width: 60px; height: 60px; border-radius: 50%; border: 2px solid var(--primary); background: #333; margin-left: -15px; background-size: cover; box-shadow: 0 0 15px rgba(255,64,129,0.5); }
-
-        /* The Big "Creamy" Button */
-        .download-btn {
-            background: linear-gradient(45deg, var(--primary), #FF80AB);
-            color: white;
-            text-decoration: none;
-            padding: 18px 45px;
-            border-radius: 50px;
-            font-size: 20px;
-            font-weight: bold;
-            box-shadow: 0 10px 25px rgba(255, 64, 129, 0.4);
-            transition: transform 0.3s ease;
-            display: inline-block;
-            animation: pulse 2s infinite;
-        }
-        
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-            100% { transform: scale(1); }
+        /* The White Modal (Creamy Pop-up) */
+        .modal {
+            background: white; color: black; width: 85%; max-width: 350px;
+            padding: 30px; border-radius: 25px; text-align: center;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+            animation: slideUp 0.4s ease-out;
         }
 
-        .footer-text { margin-top: 25px; color: #888; font-size: 14px; }
+        h2 { font-size: 20px; margin: 0 0 10px; }
+        p { color: #666; font-size: 14px; margin-bottom: 20px; }
+
+        .input-box {
+            background: #F1F3F4; padding: 15px; border-radius: 15px;
+            margin-bottom: 20px; display: flex; justify-content: space-between;
+            color: #333; font-weight: bold; cursor: pointer;
+        }
+
+        .confirm-btn {
+            background: #D1C4E9; /* Light purple like your screenshot */
+            color: white; border: none; width: 100%; padding: 15px;
+            border-radius: 50px; font-size: 18px; font-weight: bold;
+            cursor: pointer; text-decoration: none; display: block;
+        }
+
+        @keyframes slideUp { from { transform: translateY(50px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
     </style>
 </head>
 <body>
 
-<div class="hero">
-    <div class="logo">BUZZ<span>CAST</span></div>
-    
-    <div class="live-circles">
-        <div class="circle" style="background-image: url('https://via.placeholder.com/100?text=Host1')"></div>
-        <div class="circle" style="background-image: url('https://via.placeholder.com/100?text=Host2')"></div>
-        <div class="circle" style="background-image: url('https://via.placeholder.com/100?text=Host3')"></div>
+    <div class="grid">
+        <div class="box" style="background-image: url('https://i.pravatar.cc/300?u=1')"></div>
+        <div class="box" style="background-image: url('https://i.pravatar.cc/300?u=2')"></div>
+        <div class="box" style="background-image: url('https://i.pravatar.cc/300?u=3')"></div>
+        <div class="box" style="background-image: url('https://i.pravatar.cc/300?u=4')"></div>
     </div>
 
-    <h1 class="headline">Meet Hot Live Hosts <br> in Asia Tonight!</h1>
-    
-    <a href="YOUR_BUZZCAST_LINK" class="download-btn">DOWNLOAD & START</a>
+    <div class="overlay">
+        <div class="modal">
+            <h2>Nice to meet you! What is your birthday?</h2>
+            <p>To provide you with a better product experience.</p>
+            
+            <div class="input-box">
+                <span>Choose your birthday</span>
+                <span>></span>
+            </div>
 
-    <p class="footer-text">18+ Only • Safe & Private • 10M+ Users</p>
-</div>
+            <a href="YOUR_BUZZCAST_LINK_HERE" class="confirm-btn">Confirm</a>
+            
+            <p style="margin-top:15px; font-size:12px;">Already have an account? <span style="color:#7C4DFF">Login</span></p>
+        </div>
+    </div>
 
 </body>
 </html>
