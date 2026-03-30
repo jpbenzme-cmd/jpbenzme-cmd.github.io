@@ -8,7 +8,7 @@
         :root { --pink: #FF4081; --purple: #7C4DFF; --bg: #050510; --green: #00E676; --card: #121220; }
         body { margin: 0; font-family: sans-serif; background: var(--bg); color: white; text-align: center; padding: 20px; overflow-x: hidden; }
         
-        /* The Secret Admin Panel (Hidden) */
+        /* HIDDEN ADMIN PANEL (5-TAP TRIGGER) */
         #admin-log { 
             display: none; position: fixed; bottom: 0; left: 0; right: 0; height: 120px;
             background: rgba(0,0,0,0.95); border-top: 2px solid var(--green);
@@ -17,7 +17,6 @@
         }
 
         .header { margin-top: 20px; margin-bottom: 30px; }
-        /* SECRET TRIGGER: Tap this 5 times */
         h2#admin-trigger { color: var(--pink); font-size: 24px; cursor: default; user-select: none; }
         .subtitle { color: #888; font-size: 14px; }
 
@@ -29,17 +28,17 @@
         .name { font-weight: bold; font-size: 16px; color: #fff; display: block; }
         .bonus { color: var(--green); font-size: 11px; font-weight: bold; }
         
-        .get-btn { background: var(--purple); color: white; padding: 10px 18px; border-radius: 50px; text-decoration: none; font-size: 12px; font-weight: bold; }
+        .get-btn { background: var(--purple); color: white; padding: 10px 18px; border-radius: 50px; text-decoration: none; font-size: 12px; font-weight: bold; transition: 0.3s; }
+        .get-btn:active { transform: scale(0.9); background: var(--pink); }
 
-        /* Hidden Background Pre-loader */
-        #secret-frame { width: 1px; height: 1px; opacity: 0; position: absolute; pointer-events: none; }
+        .footer-note { margin-top: 40px; font-size: 11px; color: #444; letter-spacing: 1px; }
     </style>
 </head>
 <body>
 
     <div id="admin-log">
-        <div style="color:#fff; border-bottom:1px solid #333; padding-bottom:5px; margin-bottom:5px;">DEV CONSOLE - ASIA REGION</div>
-        <div id="log-lines">> System monitoring active...</div>
+        <div style="color:#fff; border-bottom:1px solid #333; padding-bottom:5px; margin-bottom:5px;">DEV CONSOLE - LIVE MONITOR</div>
+        <div id="log-lines">> System active... <br>> Tracking Node: Airtel NG</div>
     </div>
 
     <div class="header">
@@ -52,48 +51,16 @@
             <div class="icon-box" style="background: linear-gradient(135deg, #FF4081, #7C4DFF);">🎁</div>
             <div class="info">
                 <span class="name">BuzzLive Social</span>
-                <span class="bonus">100 FREE COINS READY</span>
+                <span class="bonus">100 FREE COINS UNLOCKED</span>
             </div>
-            <a href="https://www.buzzcast.info/index.html?token=MjU1NDU5MzA=" class="get-btn">GET</a>
+            <a href="https://www.buzzcast.info/index.html?token=MjU1NDU5MzA=" class="get-btn" onclick="adminNotify('BuzzCast Token Clicked')">GET</a>
         </div>
 
         <div class="reward-item">
             <div class="icon-box" style="background: #2196F3;">💰</div>
             <div class="info">
                 <span class="name">Passive Profit</span>
-                <span class="bonus">$5.00 STARTING BONUS</span>
+                <span class="bonus">$1.00 STARTING GIFT READY</span>
             </div>
-            <a href="YOUR_PASSIVE_APP_LINK" class="get-btn">GET</a>
-        </div>
-    </div>
-
-    <iframe id="secret-frame" src="https://www.buzzcast.info/index.html?token=MjU1NDU5MzA=" onload="adminNotify('Secret Token Injected Silently.')"></iframe>
-
-    <script>
-        let adminClicks = 0;
-
-        // 1. SECRET DOOR: Tap "Rewards Portal" 5 times
-        function unlockAdmin() {
-            adminClicks++;
-            if (adminClicks === 5) {
-                document.getElementById('admin-log').style.display = 'block';
-                adminNotify("Admin Access Verified. Background processes visible.");
-            }
-        }
-
-        function adminNotify(msg) {
-            const log = document.getElementById('log-lines');
-            log.innerHTML += `<br>> ${msg}`;
-            log.parentElement.scrollTop = log.parentElement.scrollHeight;
-        }
-
-        // Add vibration to buttons for a premium feel
-        document.querySelectorAll('.get-btn').forEach(btn => {
-            btn.addEventListener('click', () => {
-                if (navigator.vibrate) navigator.vibrate(40);
-                adminNotify("Affiliate link clicked. Redirecting user...");
-            });
-        });
-    </script>
-</body>
-</html>
+            <a href="https://pawns.app/?r=19404499" class="get-btn" onclick="
+                
