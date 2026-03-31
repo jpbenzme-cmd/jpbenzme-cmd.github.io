@@ -3,76 +3,162 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JP Benz Rewards Portal</title>
+    <title>MobiTapcoin - Tap to Earn</title>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <style>
-        :root { --green: #00ff00; --hot-pink: #ff69b4; }
-        body { background: #000; color: #fff; font-family: sans-serif; text-align: center; margin: 0; padding: 20px; }
-        #tap-circle { width: 150px; height: 150px; background: var(--green); border-radius: 50%; margin: 50px auto; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 24px; color: #000; font-weight: bold; transition: 0.1s; }
-        #tap-circle:active { transform: scale(0.9); }
-        .spinner { width: 40px; height: 40px; border: 4px solid #222; border-top: 4px solid var(--green); border-radius: 50%; animation: spin 1s linear infinite; margin: 20px auto; }
-        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-        #user-loader { display: none; margin-top: 20px; }
-        #ad-container { margin: 20px 0; min-height: 50px; }
+        body {
+            background-color: #0a0a0a;
+            color: white;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            user-select: none; /* Prevents text highlighting while tapping */
+        }
+        .container {
+            max-width: 400px;
+            margin: auto;
+            padding: 20px;
+        }
+        #tap-button {
+            width: 220px;
+            height: 220px;
+            background: linear-gradient(145deg, #00ff00, #008800);
+            border-radius: 50%;
+            margin: 30px auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            font-weight: bold;
+            color: black;
+            cursor: pointer;
+            box-shadow: 0 0 30px rgba(0, 255, 0, 0.3);
+            border: 8px solid #1a1a1a;
+            transition: transform 0.1s;
+        }
+        #tap-button:active {
+            transform: scale(0.95);
+        }
+        .card {
+            background: #1a1a1a;
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+            border: 1px solid #333;
+        }
+        .task-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #222;
+            padding: 12px;
+            border-radius: 10px;
+            margin-bottom: 10px;
+        }
+        .btn-action {
+            background: #0088cc;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 6px;
+            font-weight: bold;
+            cursor: pointer;
+        }
     </style>
 </head>
 <body>
 
-    <div id="game-section">
-        <h1 style="color: var(--hot-pink);">REWARDS PORTAL</h1>
-        <p style="color: #888;">Complete 20 taps to sync rewards</p>
-        
-        <div id="tap-circle" onclick="handleTap()">TAP</div>
-        <h2 style="font-weight: 300;">Sync: <span id="count" style="color: var(--green); font-weight: bold;">0</span>/20</h2>
+<div class="container">
+    <h1 style="color: #00ff00; margin-bottom: 5px;">MOBITAP COIN</h1>
+    <p style="color: #888; font-size: 14px; margin-top: 0;">Asia & Africa's Rewards Portal</p>
 
-        <div id="user-loader">
-            <div class="spinner"></div>
-            <p>Finalizing Ad-Credit Sync...</p>
+    <div class="card">
+        <p style="color: #888; font-size: 14px; margin: 0;">MobiTap Balance</p>
+        <h2 style="color: #00ff00; font-size: 42px; margin: 10px 0;">
+            <span id="balance">0</span> <small style="font-size: 16px;">MC</small>
+        </h2>
+        
+        <div style="width: 100%; background: #333; height: 10px; border-radius: 5px;">
+            <div id="progress-bar" style="width: 0%; background: #00ff00; height: 100%; border-radius: 5px; transition: 0.3s;"></div>
+        </div>
+        <p style="font-size: 12px; color: #666; margin-top: 8px;">Min. Withdrawal: 5,000 MC</p>
+
+        <button onclick="requestWithdrawal()" id="withdraw-btn" style="width: 100%; margin-top: 15px; background: #333; color: #666; border: none; padding: 12px; border-radius: 8px; font-weight: bold; cursor: not-allowed;">
+            WITHDRAW FUNDS
+        </button>
+    </div>
+
+    <div id="tap-button" onclick="handleTap()">TAP</div>
+
+    <div class="card" style="text-align: left;">
+        <h3 style="margin-top: 0;">Earn Extra MC</h3>
+        
+        <div class="task-row">
+            <div>
+                <p style="margin: 0; font-weight: bold; color: #00ff00;">Join Telegram</p>
+                <p style="margin: 0; font-size: 12px; color: #888;">+500 MC</p>
+            </div>
+            <button class="btn-action" onclick="doTask('tg', 500)">Join</button>
+        </div>
+
+        <div class="task-row">
+            <div>
+                <p style="margin: 0; font-weight: bold; color: #ff00ff;">Watch Bonus Ad</p>
+                <p style="margin: 0; font-size: 12px; color: #888;">+200 MC</p>
+            </div>
+            <button class="btn-action" style="background: #ff00ff;" onclick="doTask('ad', 200)">Watch</button>
         </div>
     </div>
 
-    <div id="ad-container">
-        <ins class="adsbygoogle"
-             style="display:inline-block;width:320px;height:50px"
-             data-ad-client="ca-app-pub-4925839857210708"
-             data-ad-slot="5255655743"></ins>
-        <script> (adsbygoogle = window.adsbygoogle || []).push({}); </script>
-    </div>
-
-    <div style="margin: 30px 0;">
-        <script async="async" data-cfasync="false" src="//pl25023315.profitablecpmratenetwork.com/cc87fb03b620734d3027d583de76bd26/invoke.js"></script>
-        <div id="container-cc87fb03b620734d3027d583de76bd26"></div>
-    </div>
-
-    <footer style="margin-top: 50px; padding: 20px; font-size: 12px; color: #555;">
-        <hr style="border: 0; border-top: 1px solid #222; margin-bottom: 20px;">
-        <a href="privacy-policy.html" style="color: #888; text-decoration: none;">Privacy Policy</a>
-        <p style="margin-top: 10px;">&copy; 2026 JP Benz Digital Systems</p>
+    <footer style="font-size: 12px; color: #444; margin-top: 30px;">
+        <p>&copy; 2026 MobiTapcoin Global</p>
+        <a href="privacy-policy.html" style="color: #666;">Privacy Policy</a>
     </footer>
+</div>
 
-    <script>
-        let taps = 0;
-        function handleTap() {
-            if (taps < 20) {
-                taps++;
-                document.getElementById('count').innerText = taps;
-                if (navigator.vibrate) navigator.vibrate(40);
-            }
-            if (taps === 20) {
-                startRedirect();
-            }
+<script>
+    let coins = 0;
+    const minWithdrawal = 5000;
+
+    function handleTap() {
+        coins += 1;
+        updateUI();
+    }
+
+    function updateUI() {
+        document.getElementById('balance').innerText = coins.toLocaleString();
+        
+        let percentage = (coins / minWithdrawal) * 100;
+        if (percentage > 100) percentage = 100;
+        document.getElementById('progress-bar').style.width = percentage + "%";
+        
+        if (coins >= minWithdrawal) {
+            let btn = document.getElementById('withdraw-btn');
+            btn.style.background = "#00ff00";
+            btn.style.color = "#000";
+            btn.style.cursor = "pointer";
+            btn.innerText = "WITHDRAW NOW";
         }
+    }
 
-        function startRedirect() {
-            document.getElementById('tap-circle').style.display = 'none';
-            document.getElementById('user-loader').style.display = 'block';
-            setTimeout(() => {
-                window.location.href = "page2.html";
-            }, 3500); 
+    function doTask(type, reward) {
+        if (type === 'tg') {
+            window.open('https://t.me/YOUR_BOT_USERNAME', '_blank'); // Change this to your link
         }
-    </script>
+        coins += reward;
+        updateUI();
+        alert("Task Completed! You earned " + reward + " MC");
+    }
 
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-app-pub-4925839857210708" crossorigin="anonymous"></script>
+    function requestWithdrawal() {
+        if (coins < minWithdrawal) {
+            alert("Keep tapping! You need " + (minWithdrawal - coins) + " more MC.");
+        } else {
+            alert("Request Received! Please contact support in the Telegram Bot to finalize your payment.");
+        }
+    }
+</script>
 
 </body>
 </html>
-                
