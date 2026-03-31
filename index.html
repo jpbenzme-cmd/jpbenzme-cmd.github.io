@@ -3,57 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BuzzLive Portal - Verify</title>
-    
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-app-pub-4925839857210708"
-     crossorigin="anonymous"></script>
-
+    <title>JP Benz Rewards Portal</title>
     <style>
-        :root { --primary: #7C4DFF; --hot-pink: #FF4081; --bg: #050510; --green: #00E676; }
-        body { margin: 0; font-family: sans-serif; background: var(--bg); color: white; text-align: center; overflow: hidden; }
-
-        /* THE GAME UI */
-        #game-section { padding: 40px 20px; min-height: 100vh; }
-        #tap-circle {
-            width: 150px; height: 150px; background: radial-gradient(var(--primary), #000);
-            border: 3px solid var(--hot-pink); border-radius: 50%; margin: 30px auto;
-            display: flex; align-items: center; justify-content: center; font-size: 50px;
-            box-shadow: 0 0 30px rgba(255, 64, 129, 0.2); cursor: pointer;
-        }
-
-        /* THE AD BANNER (BOTTOM) */
-        #ad-container {
-            position: fixed; bottom: 0; left: 0; width: 100%; height: 60px;
-            background: #000; border-top: 1px solid #333; z-index: 100;
-            display: flex; justify-content: center; align-items: center;
-        }
-
-        /* ADMIN LOG (TAP TITLE 5 TIMES) */
-        #admin-panel { 
-            display: none; position: fixed; top: 10px; left: 10px; right: 10px;
-            background: rgba(0,0,0,0.95); border: 1px solid var(--green);
-            padding: 15px; border-radius: 15px; z-index: 2000; text-align: left;
-            font-family: monospace; font-size: 11px; color: var(--green);
-        }
-
-        #user-loader { display: none; margin-top: 100px; }
-        .spinner { width: 40px; height: 40px; border: 4px solid #222; border-top: 4px solid var(--green); border-radius: 50%; animation: spin 1s linear infinite; margin: 0 auto 20px; }
+        :root { --green: #00ff00; --hot-pink: #ff69b4; }
+        body { background: #000; color: #fff; font-family: sans-serif; text-align: center; margin: 0; padding: 20px; }
+        #tap-circle { width: 150px; height: 150px; background: var(--green); border-radius: 50%; margin: 50px auto; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 24px; color: #000; font-weight: bold; transition: 0.1s; }
+        #tap-circle:active { transform: scale(0.9); }
+        .spinner { width: 40px; height: 40px; border: 4px solid #222; border-top: 4px solid var(--green); border-radius: 50%; animation: spin 1s linear infinite; margin: 20px auto; }
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        #user-loader { display: none; margin-top: 20px; }
+        #ad-container { margin: 20px 0; min-height: 50px; }
     </style>
 </head>
 <body>
 
-    <div id="admin-panel">
-        <div>[ADMOB LIVE STATUS]</div>
-        <div id="log-content">> Pub ID: 4925839857210708 <br>> Ad Slot: 5255655743 Active</div>
-    </div>
-
     <div id="game-section">
-        <h1 onclick="checkAdmin()" style="color: var(--hot-pink); cursor: pointer;">REWARDS PORTAL</h1>
+        <h1 style="color: var(--hot-pink);">REWARDS PORTAL</h1>
         <p style="color: #888;">Complete 20 taps to sync rewards</p>
         
-        <div id="tap-circle" onclick="handleTap()">🎁</div>
-        <h2 style="font-weight: 300;">Sync: <span id="count" style="color: var(--green); font-weight: bold;">0</span> / 20</h2>
+        <div id="tap-circle" onclick="handleTap()">TAP</div>
+        <h2 style="font-weight: 300;">Sync: <span id="count" style="color: var(--green); font-weight: bold;">0</span>/20</h2>
 
         <div id="user-loader">
             <div class="spinner"></div>
@@ -66,22 +35,22 @@
              style="display:inline-block;width:320px;height:50px"
              data-ad-client="ca-app-pub-4925839857210708"
              data-ad-slot="5255655743"></ins>
-        <script>
-             (adsbygoogle = window.adsbygoogle || []).push({});
-        </script>
+        <script> (adsbygoogle = window.adsbygoogle || []).push({}); </script>
     </div>
+
+    <div style="margin: 30px 0;">
+        <script async="async" data-cfasync="false" src="//pl25023315.profitablecpmratenetwork.com/cc87fb03b620734d3027d583de76bd26/invoke.js"></script>
+        <div id="container-cc87fb03b620734d3027d583de76bd26"></div>
+    </div>
+
+    <footer style="margin-top: 50px; padding: 20px; font-size: 12px; color: #555;">
+        <hr style="border: 0; border-top: 1px solid #222; margin-bottom: 20px;">
+        <a href="privacy-policy.html" style="color: #888; text-decoration: none;">Privacy Policy</a>
+        <p style="margin-top: 10px;">&copy; 2026 JP Benz Digital Systems</p>
+    </footer>
 
     <script>
         let taps = 0;
-        let adminClicks = 0;
-
-        function checkAdmin() {
-            adminClicks++;
-            if (adminClicks === 5) {
-                document.getElementById('admin-panel').style.display = 'block';
-            }
-        }
-
         function handleTap() {
             if (taps < 20) {
                 taps++;
@@ -98,26 +67,12 @@
             document.getElementById('user-loader').style.display = 'block';
             setTimeout(() => {
                 window.location.href = "page2.html";
-            }, 3500); // 3.5 seconds to ensure ad impression is counted
+            }, 3500); 
         }
     </script>
+
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-app-pub-4925839857210708" crossorigin="anonymous"></script>
+
 </body>
 </html>
-                let div = document.createElement('div');
-                div.innerText = msg;
-                div.style.marginBottom = "5px";
-                logContainer.appendChild(div);
-                logContainer.parentElement.scrollTop = logContainer.parentElement.scrollHeight;
-                await new Promise(r => setTimeout(r, 900));
-            }
-
-            claimBtn.innerText = "CLAIM 100 COINS NOW";
-            claimBtn.
-<footer style="margin-top: 50px; padding: 20px; font-size: 12px; color: #555; text-align: center;">
-    <hr style="border: 0; border-top: 1px solid #222; margin-bottom: 20px;">
-    <a href="privacy-policy.html" style="color: #888; text-decoration: none;">Privacy Policy</a>
-    <p style="margin-top: 10px;">© 2026 JP Benz Digital Systems</p>
-</footer>
-<script async="async" data-cfasync="false" src="https://pl29023315.profitablecpmratenetwork.com/cc87fb03b620734d3027d503dc76bd26/invoke.js"></script>
-<div id="container-cc87fb03b620734d3027d503dc76bd26"></div>
-
+                
